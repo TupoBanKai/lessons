@@ -28,3 +28,4 @@ end
 print 'Enter 3 numbers: '
 discriminant = Discriminant.new(gets.to_i, gets.to_i, gets.to_i)
 discriminant.calculate
+#Не совсем понял о какой вы переменной.
