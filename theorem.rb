@@ -5,18 +5,21 @@ class Theorem
     @hypotenuse = hypotenuse
     @values = [first_leg, second_leg, hypotenuse].uniq.sort
   end
+
   def isosceles
     if @values.length == 2
       print "The triangle is isosceles"
     else equilateral
     end
   end
+
   def equilateral
     if @values.length == 1
       print "The triangle is equilateral"
     else right_angle
     end
   end
+  
   def right_angle
     if !(@hypotenuse > @first_leg && @hypotenuse > @second_leg)
       print 'You have specified the wrong hypotenuse'

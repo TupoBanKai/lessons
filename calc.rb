@@ -3,6 +3,7 @@ class Calc
     @a = a
     @h = h
   end
+  
   def calculate
     print 1.0/2 * @a * @h
   end

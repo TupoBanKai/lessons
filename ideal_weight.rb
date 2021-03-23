@@ -1,8 +1,9 @@
 class WeighingMachine
   def initialize(name, growth)
     @name = name
-      @growth = growth
+    @growth = growth
   end
+
   def starter
     if @growth < 110
       print 'Your weight is already optimal'
