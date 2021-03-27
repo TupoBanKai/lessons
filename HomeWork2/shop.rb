@@ -5,8 +5,8 @@ class Shop
       'soup' => 300
     }
   def initialize
-    @hash = Hash.new
-    @cost = Array.new
+    @hash = []
+    @cost = {}
   end
 
   def buy
@@ -16,7 +16,7 @@ class Shop
       puts '0 to exit'
       input = gets.to_i
       if input == 1
-      RANGE.each { |key, value| puts key }
+      RANGE.each { |prod_name, price| puts prod_name }
       elsif input == 2
         hasher
       elsif input == 0
@@ -32,11 +32,11 @@ class Shop
     product = gets.chomp
     puts 'And quantity of the product'
     quantity = gets.to_i
-    basket = Hash.new
+    basket = []
     @hash[product] = basket[product] = {RANGE[product] => quantity}
     @cost.push(RANGE[product] * quantity)
     print "Your basket: #{@hash}"
-  end
+  ends
 
   def coster
     i = 0
