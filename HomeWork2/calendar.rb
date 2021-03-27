@@ -10,7 +10,7 @@ class Calendar
     febrary_days = if l_year
       29
   	else
-  	  28
+      28
     end
     {
       1 => 31,
@@ -45,7 +45,7 @@ class Calendar
   end
 
   def counter
-  	print @sum_day
+    print @sum_day
   end
 end
 calendar = Calendar.new(gets.to_i, gets.to_i, gets.to_i)
