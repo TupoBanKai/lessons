@@ -17,8 +17,6 @@ class Station
   end
 end
 
-
-
 class Route
   attr_reader :start_station, :end_station
   def initialize(start_station, end_station)
@@ -43,8 +41,6 @@ class Route
     return [@start_station, *@way, @end_station]
   end
 end
-
-
 
 class Train
   attr_reader :speed, :carriages
@@ -106,7 +102,6 @@ class Train
     end
   end
 end
-
 
 station = Station.new('Volga')
 station2 = Station.new('NeVolga')
