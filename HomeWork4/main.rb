@@ -5,7 +5,7 @@ require_relative 'freight_carriage'
 require_relative 'passenger_carriage'
 require_relative 'carriage'
 require_relative 'route'
-require_relative 'station' # ИСПРАВИТЬ ПРЕДИДУЩЕЕ ЗАДАНИЕ НА ГИТХАБЕ
+require_relative 'station'
 
 class Simulation
   def initialize
@@ -15,7 +15,7 @@ class Simulation
     @type_carriage = ''
   end
 
-  def start # ПОЧЕМУ ТО НЕ ПРИНИМАЕТ BREAK ПОД 0 ОТВЕТОМ ДЛЯ ВЫХОДА
+  def start
     puts '1: Route actions'
     puts '2: Actions with trains'
     puts '0: Exit programm'
@@ -86,7 +86,7 @@ class Simulation
   end
 
   def action_with_train
-    puts 'Создайте поезд введя номер поезда и тип которому задастся маршрут'
+    puts 'Create a train by entering the train number and the type of which the route will be set'
     number = gets.chomp
     @type = gets.chomp.upcase
     if @type == 'CARGO'
@@ -96,16 +96,16 @@ class Simulation
     end
     if @route != nil
       @train.set_route(@route)
-      puts 'Маршрут для поезда задан'
+      puts 'The route for the train is set'
     end
     while true
-      puts 'Желаете ли вы регулировать вагонами на текущем поезде?'
-      puts '1: Да'
+      puts 'Would you like to regulate the wagons on the current train?'
+      puts '1: Yes'
       puts '0: Exit'
       answer = gets.to_i
       if answer == 1
-        puts '1: Присоединить вагоны'
-        puts '2: Отсоединить вагоны'
+        puts '1: Attach carriages'
+        puts '2: Disconnect carriages'
         puts '0: Exit'
         answer2 = gets.to_i
         if answer2 == 1
@@ -126,10 +126,10 @@ class Simulation
         break
       end
     end
-    puts 'Viberite kuda otpravit poezd:'
-    puts '1: fpered'
-    puts '2: nasat'
-    puts '0: End route' # ОПЯТЬ BREAK не работает
+    puts 'Choose where to send the train:'
+    puts '1: Next'
+    puts '2: Previos'
+    puts '0: End route'
     answer = gets.to_i
     if answer == 1
       @train.move_next

@@ -39,7 +39,7 @@ class Train
 
   def current_station
     if @current_station == nil
-      puts 'current station eshe net'
+      puts 'Current station eshe net'
     else
       return @current_station.name_station
     end
@@ -66,7 +66,7 @@ class Train
   def move_next
     if @current_station != @route.last
       @current_station.sending_trains(self)
-      @route[@route.find_index(@current_station) + 1].receiving_trains(self) #Вылазеет ошибка если не задана вторая станция
+      @route[@route.find_index(@current_station) + 1].receiving_trains(self)
       @current_station = @route[@route.find_index(@current_station) + 1]
     else
       puts 'You have already arrived at your destination'

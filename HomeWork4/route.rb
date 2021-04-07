@@ -8,11 +8,11 @@ class Route
     @way = []
   end
 
-  def change_start_station(name) #private?
+  def change_start_station(name)
     @start_station = Station.new(name)
   end
 
-  def change_end_station(name) #private?
+  def change_end_station(name)
     @end_station = Station.new(name)
   end
 
