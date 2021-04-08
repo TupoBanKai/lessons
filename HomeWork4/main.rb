@@ -29,6 +29,8 @@ class Simulation
     end
   end
 
+  private
+
   def action_with_route
     loop do
       puts '1: Add station'
