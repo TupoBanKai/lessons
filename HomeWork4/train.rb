@@ -8,7 +8,6 @@ class Train
     @speed = 0
     @route = nil
     @current_station = nil
-    @carriage_type = @type
   end
 
   def take_overclocking
@@ -20,18 +19,18 @@ class Train
   end
 
   def attach_carriage(carriage)
-    if carriage == @carriage_type || @speed == 0
-      @train_composition << carriage
-      @train_composition.each { |carriage| puts "#{carriage.carriage_type}" }
+    if @type == carriage || @speed == 0
+      @train_composition << type
+      @train_composition.each { |carriage| puts "#{type.carriage}" }
     else
       puts 'You need hit_the_brake or chek carriage type'
     end
   end
 
   def unhook_carriage(carriage)
-    if carriage == @carriage_type || @speed == 0
+    if @type == carriage || @speed == 0
       @train_composition.delete(@train_composition.last)
-      @train_composition.each { |carriage| puts "#{carriage.carriage_type}" }
+      @train_composition.each { |carriage| puts "#{carriage.carriage}" }
     else
       puts 'You need hit_the_brake'
     end

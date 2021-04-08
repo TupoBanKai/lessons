@@ -1,7 +1,7 @@
 class Carriage
-  attr_accessor :carriage_type
+  attr_accessor :carriage
 
   def initialize
-    @carriage_type = ''
+    @carriage = ''
   end
 end

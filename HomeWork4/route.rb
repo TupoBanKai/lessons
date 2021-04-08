@@ -8,7 +8,7 @@ class Route
     @way = []
   end
 
-  def change_start_station(name)
+  def change_start_station(name)  # На счет станций я понял
     @start_station = Station.new(name)
   end
 

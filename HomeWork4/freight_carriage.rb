@@ -1,6 +1,6 @@
 require_relative 'carriage'
 class FreigtCarriage < Carriage
   def initialize
-    @carriage_type = 'Freight carriage'
+    @carriage = 'Freight carriage'
   end
 end

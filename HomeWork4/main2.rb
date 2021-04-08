@@ -9,8 +9,6 @@ require_relative 'station'
 
 class Simulation
   def initialize
-    @star_station = nil
-    @end_station = nil
     @current_train = nil
     @route = Route.new(nil, nil)
     @trains = []
