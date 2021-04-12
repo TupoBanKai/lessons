@@ -9,10 +9,11 @@ require_relative 'station'
 
 class Simulation
   def initialize
-    @star_station = nil
+    @start_station = nil
     @end_station = nil
+    @intermediate_station = nil
     @current_train = nil
-    @route = Route.new(nil, nil)
+    @route = nil #Route.new(nil, nil)
     @trains = []
     @type_carriage = ''
   end
@@ -60,19 +61,20 @@ class Simulation
       when 1
         puts 'Enter a new station name:'
         new_name = gets.chomp
-        @route.change_start_station(new_name)
+        @start_station = Station.new(new_name)
         way
       when 2
         puts 'Enter a new station name:'
         new_name = gets.chomp
-        @route.change_end_station(new_name)
+        @end_station = Station.new(new_name)
         way
       when 3
         puts 'Enter a new station name:'
         new_name = gets.chomp
-        @route.add_intermediate_station(new_name)
+        @intermediate_station = Station.new(new_name)
         way
       when 0
+        @route = Route.new(@start_station, @end_station, @intermediate_station)
         action_with_route
       end
     end
@@ -81,22 +83,14 @@ class Simulation
   def delete_station
     loop do
       puts 'Which station is dolzjna bit udalena?'
-      puts '1: Start station'
-      puts '2: End station'
-      puts '3: Intermediate station'
+      puts '1: Intermediate station'
       puts '0: Exit'
       answer = gets.to_i
       case answer
       when 1
-        @route.delete_start_station
-        way
-      when 2
-        @route.delete_end_station
-        way
-      when 3
         puts 'Enter name station'
         name = gets.chomp
-        @route.delete_intermediate_station(name)
+        @route.delete_station(name)
         way
       when 0
         action_with_route
@@ -209,7 +203,7 @@ class Simulation
 
  def way
     way = []
-    @route.stations.each do |station| 
+    [@start_station, *@intermediate, @end_station].each do |station| 
       if station != nil 
         way << station.name_station
       end

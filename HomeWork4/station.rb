@@ -7,10 +7,7 @@ class Station
   end
 
   def show_trains
-    puts @station_type_trains['Cargo'].map { |train| "#{train.type} #{train.number}" }
-    puts @station_type_trains['Pasenger']
-    puts "Cargo's count = #{@station_type_trains['Cargo'].count}"
-    puts "Pasenger's count = #{@station_type_trains['Pasenger'].count}"
+    return @station_type_trains
   end 
 
   # private

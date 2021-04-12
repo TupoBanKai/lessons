@@ -4,7 +4,7 @@ class Train
   def initialize(number)
     @number = number
     @type = nil
-    @train_composition = []
+    @train_carriages = []
     @speed = 0
     @route = nil
     @current_station = nil
@@ -20,7 +20,7 @@ class Train
 
   def attach_carriage(carriage)
     if @type == carriage || @speed == 0
-      @train_composition << type
+      @train_carriages << type
       @train_composition.each { |carriage| puts "#{type.carriage}" }
     else
       puts 'You need hit_the_brake or chek carriage type'
@@ -29,8 +29,8 @@ class Train
 
   def unhook_carriage(carriage)
     if @type == carriage || @speed == 0
-      @train_composition.delete(@train_composition.last)
-      @train_composition.each { |carriage| puts "#{carriage.carriage}" }
+      @train_carriages.delete(@train_composition.last)
+      @train_carriages.each { |carriage| puts "#{carriage.carriage}" }
     else
       puts 'You need hit_the_brake'
     end
