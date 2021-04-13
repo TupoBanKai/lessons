@@ -1,5 +1,5 @@
 class PassangerCarriage < Carriage
   def initialize
-    @carruage = 'Passenger carriages'
+    @type = 'Passenger carriages'
   end
 end
