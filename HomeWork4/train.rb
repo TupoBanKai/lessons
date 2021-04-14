@@ -1,13 +1,11 @@
 class Train
-  attr_reader :speed, :carriages, :type, :number, :train_composition
+  attr_reader :speed, :carriages, :type, :number, :train_composition, :route, :current_station
 
   def initialize(number)
     @number = number
-    @type = nil
     @carriages = []
     @speed = 0
-    @route = nil
-    @current_station = nil
+    @route
   end
 
   def take_overclocking
@@ -21,14 +19,12 @@ class Train
   def attach_carriage(carriage)
     if @type == carriage.type || @speed == 0
       @carriages << type
-      @carriages.each { |carriage| puts "#{type.carriage}" }
     end
   end
 
   def unhook_carriage(carriage)
     if @type == carriage.type || @speed == 0
       @carriages.delete(@carriages.last)
-      @carriages.each { |carriage| puts "#{carriage.carriage}" }
     end
   end
 
@@ -58,24 +54,10 @@ class Train
     end
   end
 
-  def move_next
-    if @current_station != @route.last
+  def move(value)
       @current_station.sending_trains(self)
-      @route[@route.find_index(@current_station) + 1].receiving_trains(self)
-      @current_station = @route[@route.find_index(@current_station) + 1]
-    else
-      puts 'You have already arrived at your destination'
-    end
-  end
-
-  def move_previos
-    if @current_station != @route.first
-      @current_station.sending_trains(self)
-      @route.stations[@route.find_index(@current_station) - 1].receiving_trains(self)
-      @current_station = @route.stations[@route.find_index(@current_station) - 1]
-    else
-      puts 'You are already at the starting point of the route'
-    end
+      @route[@route.find_index(@current_station) + (value)].receiving_trains(self)
+      @current_station = @route[@route.find_index(@current_station) + (value)]
   end
 
   # protected

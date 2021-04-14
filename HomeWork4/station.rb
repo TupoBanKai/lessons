@@ -3,7 +3,7 @@ class Station
 
   def initialize(name_station)
     @name_station = name_station
-    @station_type_trains = {'Cargo' => [], 'Pasenger' => []}
+    @station_type_trains = {:cargo => [], :passenger => []}
   end
 
   def show_trains

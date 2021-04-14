@@ -103,9 +103,17 @@ class Simulation
       answer = gets.to_i
       case answer
       when 1
-        @current_train.move_next
+        if @current_train.current_station != @current_train.route.last.name_station
+          @current_train.move(1)
+        else
+          puts 'You have already arrived at your destination'
+        end
       when 2
-        @current_train.move_previos
+        if @current_train.current_station != @current_train.route.first.name_station
+          @current_train.move(-1)
+        else
+          puts 'You are already at the starting point of the route'
+        end
       when 0
         start
       end
@@ -120,14 +128,16 @@ class Simulation
       answer = gets.to_i
       case answer
       when 1
-        if @type == 'CARGO'
+        if @type == :cargo
           @current_train.hit_the_brake
           @current_train.attach_carriage(FreigtCarriage.new)
+          @current_train.carriages.each { |carriage| puts "#{type.carriage}" }
         end
       when 2
-        if @type == 'PASSENGER'
+        if @type == :passenger
           @current_train.hit_the_brake
           @current_train.attach_carriage(PassengerCarriage.new)
+          @current_train.carriages.each { |carriage| puts "#{type.carriage}" }
         end
       when 0
         train_actions
