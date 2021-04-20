@@ -4,6 +4,7 @@ class Station
   def initialize(name_station)
     @name_station = name_station
     @station_type_trains = {:cargo => [], :passenger => []}
+    @@all.append(self)
   end
 
   def show_trains
@@ -11,6 +12,11 @@ class Station
   end 
 
   # private
+  @@all = []
+
+  def self.all
+    @@all
+  end
 
   def receiving_trains(train)
     items = @station_type_trains[train.type]

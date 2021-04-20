@@ -1,11 +1,18 @@
+require_relative 'InstanceCounter'
+require_relative 'ModuleOwner'
+
 class Train
+  include InstanceCounter
+  include ModuleOwner
   attr_reader :speed, :carriages, :type, :number, :train_composition, :route, :current_station
 
   def initialize(number)
     @number = number
     @carriages = []
     @speed = 0
+    @@trains[number] = self
     @route
+    InstanceCounter.register_instance
   end
 
   def take_overclocking
@@ -61,6 +68,16 @@ class Train
   end
 
   # protected
+
+  @@trains = {}
+
+  def self.find(number)
+    if @@trains.include?(number)
+      @@trains[number]
+    else
+      return nil
+    end
+  end
 
   def set_route(route)
     @route = route.stations
