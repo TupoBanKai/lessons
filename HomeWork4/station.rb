@@ -1,10 +1,16 @@
+require_relative 'InstanceCounter'
+require_relative 'ModuleOwner'
+
 class Station
   attr_reader :station_type_trains, :name_station
+  include InstanceCounter
+  include Owner
 
   def initialize(name_station)
     @name_station = name_station
     @station_type_trains = {:cargo => [], :passenger => []}
     @@all.append(self)
+    register_instance
   end
 
   def show_trains

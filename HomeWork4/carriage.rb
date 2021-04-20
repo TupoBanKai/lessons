@@ -1,4 +1,4 @@
 class Carriage
   require_relative 'ModuleOwner'
-  include ModuleOwner
+  include Owner
 end

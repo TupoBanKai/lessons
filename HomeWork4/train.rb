@@ -3,7 +3,7 @@ require_relative 'ModuleOwner'
 
 class Train
   include InstanceCounter
-  include ModuleOwner
+  include Owner
   attr_reader :speed, :carriages, :type, :number, :train_composition, :route, :current_station
 
   def initialize(number)
@@ -12,7 +12,7 @@ class Train
     @speed = 0
     @@trains[number] = self
     @route
-    InstanceCounter.register_instance
+    register_instance
   end
 
   def take_overclocking
