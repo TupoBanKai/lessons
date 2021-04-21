@@ -1,22 +1,29 @@
 module InstanceCounter
-  attr_accessor :counter
-
     def self.included(base)
       base.extend ClassMethod
       base.include InstanceMethod
     end
 
   module ClassMethod
-    def self.instances
-      self.class.counter
+    attr_writer :counter
+
+    def instances(value)
+      @counter = value
     end
   end
 
   module InstanceMethod
-    protected
     @@counter = 0
+
+    def counter
+      register_instance
+    end
+
+    protected
+
     def register_instance
       @@counter += 1
+      self.class.instances(@@counter)
     end
   end
 end

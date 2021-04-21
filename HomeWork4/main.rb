@@ -55,6 +55,8 @@ class Simulation
       when 2
         puts 'Enter the number of the train'
         find_train(gets.chomp)
+      when 0
+        exit
       end
     end
   end
