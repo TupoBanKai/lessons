@@ -12,6 +12,7 @@ class Train
     @speed = 0
     @@trains[number] = self
     @route
+    @@instances = 0
     register_instance
   end
 

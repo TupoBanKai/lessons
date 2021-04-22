@@ -5,25 +5,20 @@ module InstanceCounter
     end
 
   module ClassMethod
-    attr_writer :counter
+    attr_writer :instances
 
-    def instances(value)
-      @counter = value
+    def instances
+      @instances
     end
   end
 
   module InstanceMethod
-    @@counter = 0
-
-    def counter
-      register_instance
-    end
-
     protected
 
     def register_instance
-      @@counter += 1
-      self.class.instances(@@counter)
+      count = self.class.instances || 0
+      count += 1
+      self.class.instances = count
     end
   end
 end
