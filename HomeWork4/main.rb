@@ -62,21 +62,36 @@ class Simulation
   end
 
   def create_train
-    puts 'Create a train by entering the train number and the type of which the route will be set'
-    number = gets.chomp
-    @type = gets.chomp.upcase
-    if @type == 'CARGO'
-      @current_train = TrainCargo.new(number)
-      @trains << @current_train
-    elsif @type == 'PASSENGER'
-      @current_train = TrainPassenger.new(number)
-      @trains << @current_train
+    loop do
+      puts 'Create a train by entering the train number and the type of which the route will be set'
+      number = gets.chomp
+      @type = gets.chomp.upcase
+      if @type == 'CARGO'
+        @current_train = TrainCargo.new(number)
+        if @current_train.valid? 
+          @trains << @current_train
+        else
+          puts 'NameError try again'
+          @current_train = nil
+          actions_with_trains
+        end
+      end
+      if @type == 'PASSENGER'
+        @current_train = TrainPassenger.new(number)
+        if @current_train.valid? 
+          @trains << @current_train
+        else
+          puts 'NameError try again'
+          @current_train = nil
+          actions_with_trains
+        end
+      end
+      if @current_train != nil
+        @current_train.set_route(@route)
+        puts 'The route for the train is set'
+        train_actions
+      end
     end
-    if @route != nil
-      @current_train.set_route(@route)
-      puts 'The route for the train is set'
-    end
-    train_actions
   end
 
   def train_actions

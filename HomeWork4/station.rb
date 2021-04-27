@@ -11,6 +11,7 @@ class Station
     @station_type_trains = {:cargo => [], :passenger => []}
     @@all.append(self)
     register_instance
+    valid?
   end
 
   def show_trains
@@ -18,6 +19,7 @@ class Station
   end 
 
   # private
+  STATION_NAME = /^[a-zA-Z]{5,}/
   @@all = []
 
   def self.all
@@ -32,5 +34,17 @@ class Station
 
   def sending_trains(train)
     @station_type_trains[train.type].delete(train)
+  end
+
+  def validate_station_name!
+    raise 'The name should not be 0 characters' if station_name != nil
+    raise 'Use letters from a-z without numbers' if station_name !~ STATION_NAME
+  end
+
+  def valid?
+    validate_station_name!
+    true
+    rescue
+      false
   end
 end

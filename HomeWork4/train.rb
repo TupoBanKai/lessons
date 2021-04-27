@@ -14,6 +14,7 @@ class Train
     @route
     @@instances = 0
     register_instance
+    valid?
   end
 
   def take_overclocking
@@ -38,7 +39,6 @@ class Train
 
   def current_station
     if @current_station == nil
-      puts 'Current station eshe net'
     else
       return @current_station.name_station
     end
@@ -69,7 +69,7 @@ class Train
   end
 
   # protected
-
+  TRAIN_NUMBER = /^(\w{3})|(\w{3}[-]\w{2})/
   @@trains = {}
 
   def self.find(number)
@@ -84,5 +84,16 @@ class Train
     @route = route.stations
     @current_station = @route[0]
     @current_station.receiving_trains(self)
+  end
+
+  def validate_train_number!
+    raise NameError if number !~ TRAIN_NUMBER
+  end
+
+  def valid?
+    validate_train_number!
+    true
+    rescue
+      false
   end
 end
