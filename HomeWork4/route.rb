@@ -1,5 +1,5 @@
-require_relative 'InstanceCounter'
-require_relative 'ModuleOwner'
+require_relative 'Instance_counter'
+require_relative 'Module_owner'
 
 class Route
   attr_reader :start_station, :end_station

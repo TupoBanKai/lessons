@@ -1,5 +1,5 @@
-require_relative 'InstanceCounter'
-require_relative 'ModuleOwner'
+require_relative 'Instance_counter'
+require_relative 'Module_owner'
 
 class Station
   attr_reader :station_type_trains, :name_station
@@ -8,10 +8,10 @@ class Station
 
   def initialize(name_station)
     @name_station = name_station
+    validate_station_name!
     @station_type_trains = {:cargo => [], :passenger => []}
     @@all.append(self)
     register_instance
-    valid?
   end
 
   def show_trains
@@ -37,8 +37,7 @@ class Station
   end
 
   def validate_station_name!
-    raise 'The name should not be 0 characters' if station_name != nil
-    raise 'Use letters from a-z without numbers' if station_name !~ STATION_NAME
+    raise 'Use letters from a-z without numbers' if name_station !~ STATION_NAME
   end
 
   def valid?

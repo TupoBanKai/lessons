@@ -1,5 +1,5 @@
-require_relative 'InstanceCounter'
-require_relative 'ModuleOwner'
+require_relative 'Instance_counter'
+require_relative 'Module_owner'
 
 class Train
   include InstanceCounter
@@ -8,13 +8,13 @@ class Train
 
   def initialize(number)
     @number = number
+    validate_train_number!
     @carriages = []
     @speed = 0
     @@trains[number] = self
     @route
     @@instances = 0
     register_instance
-    valid?
   end
 
   def take_overclocking
