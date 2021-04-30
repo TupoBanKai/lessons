@@ -13,7 +13,7 @@ class Simulation
     @current_train = nil
     @route = nil
     @trains = []
-    @type_carriage = ''
+    @type = ''
   end
 
   def start
@@ -116,21 +116,24 @@ class Simulation
       puts 'Choose where to send the train:'
       puts '1: Next'
       puts '2: Previos'
+      puts '3: Show trains on station'
       puts '0: End route'
       answer = gets.to_i
       case answer
       when 1
-        if @current_train.current_station != @current_train.route.last.name_station
+        if @current_train.current_station.name_station != @current_train.route.last.name_station
           @current_train.move(1)
         else
           puts 'You have already arrived at your destination'
         end
       when 2
-        if @current_train.current_station != @current_train.route.first.name_station
+        if @current_train.current_station.name_station != @current_train.route.first.name_station
           @current_train.move(-1)
         else
           puts 'You are already at the starting point of the route'
         end
+      when 3
+        @current_train.current_station.all_trains { |train| puts train.type}
       when 0
         start
       end
@@ -141,20 +144,34 @@ class Simulation
     loop do
       puts '1: Attach carriages'
       puts '2: Disconnect carriages'
+      puts '3: Show carriages'
+      puts '4: Fill capacity'
       puts '0: Exit'
       answer = gets.to_i
       case answer
       when 1
-        if @type == :cargo
+        if @type == 'CARGO'
+          puts 'What is the capacity of the carriage?'
+          capacity = gets.to_i
           @current_train.hit_the_brake
-          @current_train.attach_carriage(FreigtCarriage.new)
-          @current_train.carriages.each { |carriage| puts "#{type.carriage}" }
+          @current_train.attach_carriage(FreigtCarriage.new(capacity))
+        elsif @type == 'PASSENGER'
+          puts 'How many seats?'
+          seats = gets.to_i
+          @current_train.hit_the_brake
+          @current_train.attach_carriage(PassengerCarriage.new(seats))
         end
       when 2
-        if @type == :passenger
-          @current_train.hit_the_brake
-          @current_train.attach_carriage(PassengerCarriage.new)
-          @current_train.carriages.each { |carriage| puts "#{type.carriage}" }
+        @current_train.unhook_carriage
+      when 3
+        @current_train.carriages.each { |carriage| puts "Type carriage: #{carriage.type}, capacity: #{carriage.show_capacity}, occupied volume: #{carriage.show_occupied_volume}" }
+      when 4
+        if @type == 'PASSENGER'
+          @current_train.carriages.last.loading
+        elsif @type == 'CARGO'
+          puts 'Enter the amount to fill'
+          amount_fill = gets.to_i
+          @current_train.carriages.last.loading(amount_fill)
         end
       when 0
         train_actions

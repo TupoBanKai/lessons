@@ -7,6 +7,7 @@ class Train
   attr_reader :speed, :carriages, :type, :number, :train_composition, :route, :current_station
 
   def initialize(number)
+    @type = ''
     @number = number
     validate_train_number!
     @carriages = []
@@ -14,6 +15,7 @@ class Train
     @@trains[number] = self
     @route
     @@instances = 0
+    @current_station = nil
     register_instance
   end
 
@@ -26,21 +28,14 @@ class Train
   end
 
   def attach_carriage(carriage)
-    if @type == carriage.type || @speed == 0
-      @carriages << type
+    if @speed == 0
+      @carriages << carriage
     end
   end
 
-  def unhook_carriage(carriage)
-    if @type == carriage.type || @speed == 0
+  def unhook_carriage
+    if @speed == 0
       @carriages.delete(@carriages.last)
-    end
-  end
-
-  def current_station
-    if @current_station == nil
-    else
-      return @current_station.name_station
     end
   end
 
@@ -66,6 +61,14 @@ class Train
       @current_station.sending_trains(self)
       @route[@route.find_index(@current_station) + (value)].receiving_trains(self)
       @current_station = @route[@route.find_index(@current_station) + (value)]
+  end
+
+  def all_carriages(&block)
+    @carriages.each do |carriage|
+      if block_given?
+        block(carriage).call
+      end
+    end
   end
 
   # protected
