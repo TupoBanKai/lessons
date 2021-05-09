@@ -1,5 +1,6 @@
-require_relative 'carriage'
+require_relative 'carriage' # inherited class
 
+# responsible for creating the passenger carriage
 class PassengerCarriage < Carriage
   def loading
     if @capacity - 1 >= 0

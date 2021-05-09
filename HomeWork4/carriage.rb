@@ -1,3 +1,4 @@
+# responsible for creating the carriage
 class Carriage
   require_relative 'Module_owner'
   include Owner

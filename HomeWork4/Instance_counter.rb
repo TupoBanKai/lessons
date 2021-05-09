@@ -1,10 +1,14 @@
+# counts instances of the class
 module InstanceCounter
-    def self.included(base)
-      base.extend ClassMethod
-      base.include InstanceMethod
-    end
+  # .
+  def self.included(base)
+    base.extend ClassMethod
+    base.include InstanceMethod
+  end
 
+  # module for class methods
   module ClassMethod
+    # .
     attr_writer :instances
 
     def instances
@@ -12,7 +16,10 @@ module InstanceCounter
     end
   end
 
+  # module for instance methods
   module InstanceMethod
+    # .
+
     protected
 
     def register_instance
@@ -22,5 +29,3 @@ module InstanceCounter
     end
   end
 end
-
-#include to train route and station

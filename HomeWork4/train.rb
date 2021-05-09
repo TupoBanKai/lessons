@@ -1,10 +1,13 @@
-require_relative 'Instance_counter'
-require_relative 'Module_owner'
+require_relative 'Instance_counter' # counter class var
+require_relative 'Module_owner' # to set owner
 
+# responsible for creating the train
 class Train
   include InstanceCounter
   include Owner
   attr_reader :speed, :carriages, :type, :number, :train_composition, :route, :current_station
+
+  @@instances = 0
 
   def initialize(number)
     @type = ''
@@ -13,30 +16,24 @@ class Train
     @carriages = []
     @speed = 0
     @@trains[number] = self
-    @route
-    @@instances = 0
     @current_station = nil
     register_instance
   end
 
   def take_overclocking
-    return @speed = 60
+    @speed = 60
   end
 
   def hit_the_brake
-    return @speed = 0
+    @speed = 0
   end
 
   def attach_carriage(carriage)
-    if @speed == 0
-      @carriages << carriage
-    end
+    @carriages << carriage if @speed.zero?
   end
 
   def unhook_carriage
-    if @speed == 0
-      @carriages.delete(@carriages.last)
-    end
+    @carriages.delete(@carriages.last) if @speed.zero?
   end
 
   def show_previos_station
@@ -50,7 +47,7 @@ class Train
 
   def show_next_station
     value = @route[@route.find_index(@current_station) + 1]
-    if value == nil
+    if value.nil?
       puts 'Its end station'
     else
       puts "Next station - #{value.name_station}"
@@ -58,32 +55,26 @@ class Train
   end
 
   def move(value)
-      @current_station.sending_trains(self)
-      @route[@route.find_index(@current_station) + (value)].receiving_trains(self)
-      @current_station = @route[@route.find_index(@current_station) + (value)]
+    @current_station.sending_trains(self)
+    @route[@route.find_index(@current_station) + value].receiving_trains(self)
+    @current_station = @route[@route.find_index(@current_station) + value]
   end
 
-  def all_carriages(&block)
+  def all_carriages
     @carriages.each do |carriage|
-      if block_given?
-        block(carriage).call
-      end
+      block(carriage).call if block_given?
     end
   end
 
   # protected
-  TRAIN_NUMBER = /^(\w{3})|(\w{3}[-]\w{2})/
+  TRAIN_NUMBER = /^(\w{3})|(\w{3}-\w{2})/
   @@trains = {}
 
   def self.find(number)
-    if @@trains.include?(number)
-      @@trains[number]
-    else
-      return nil
-    end
+    @@trains[number] if @@trains.include?(number)
   end
 
-  def set_route(route)
+  def appoint_route(route)
     @route = route.stations
     @current_station = @route[0]
     @current_station.receiving_trains(self)
@@ -96,7 +87,7 @@ class Train
   def valid?
     validate_train_number!
     true
-    rescue
-      false
+  rescue StandardError
+    false
   end
 end

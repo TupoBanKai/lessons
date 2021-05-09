@@ -1,8 +1,10 @@
-require_relative 'Instance_counter'
-require_relative 'Module_owner'
+require_relative 'Instance_counter' # counter class var
+require_relative 'Module_owner' # to set owner
 
+# responsible for creating route for trains
 class Route
   attr_reader :start_station, :end_station
+
   include InstanceCounter
   include Owner
 
@@ -22,6 +24,6 @@ class Route
   end
 
   def stations
-    return [@start_station, *@intermediate, @end_station]
+    [@start_station, *@intermediate, @end_station]
   end
 end

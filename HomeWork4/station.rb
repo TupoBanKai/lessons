@@ -1,29 +1,29 @@
-require_relative 'Instance_counter'
-require_relative 'Module_owner'
+require_relative 'Instance_counter' # counter class var
+require_relative 'Module_owner' # to set owner
 
+# responsible for creating stations for trains
 class Station
-  attr_reader :station_type_trains, :name_station
   include InstanceCounter
   include Owner
+
+  attr_reader :station_type_trains, :name_station
 
   def initialize(name_station)
     @name_station = name_station
     validate_station_name!
-    @station_type_trains = {:cargo => [], :passenger => []}
+    @station_type_trains = { cargo: [], passenger: [] }
     @trains = []
     @@all.append(self)
     register_instance
   end
 
   def show_trains
-    return @station_type_trains
+    @station_type_trains
   end
 
   def all_trains(&block)
     @trains.each do |train|
-      if block_given? 
-        block.call(train)
-      end
+      block.call(train) if block_given?
     end
   end
 
@@ -53,7 +53,7 @@ class Station
   def valid?
     validate_station_name!
     true
-    rescue
-      false
+  rescue StandardError
+    false
   end
 end
