@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # responsible for creating the carriage
 class Carriage
   require_relative 'Module_owner'
@@ -11,10 +13,9 @@ class Carriage
   end
 
   def loading(volume)
-    if @capacity - volume >= 0
-      @capacity -= volume
-      @occupied_volume += volume
-    end
+    return unless @capacity - volume >= 0
+
+    @occupied_volume += volume
   end
 
   def show_capacity

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'Instance_counter' # counter class var
 require_relative 'Module_owner' # to set owner
 

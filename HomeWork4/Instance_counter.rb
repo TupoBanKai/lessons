@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # counts instances of the class
 module InstanceCounter
   # .

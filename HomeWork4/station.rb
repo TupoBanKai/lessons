@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'Instance_counter' # counter class var
 require_relative 'Module_owner' # to set owner
 
@@ -28,7 +30,7 @@ class Station
   end
 
   # private
-  STATION_NAME = /^[a-zA-Z]{5,}/
+  STATION_NAME = /^[a-zA-Z]{5,}/.freeze
   @@all = []
 
   def self.all

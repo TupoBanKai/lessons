@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'Instance_counter' # counter class var
 require_relative 'Module_owner' # to set owner
 
@@ -29,10 +31,12 @@ class Train
   end
 
   def attach_carriage(carriage)
+    hit_the_brake
     @carriages << carriage if @speed.zero?
   end
 
   def unhook_carriage
+    hit_the_brake
     @carriages.delete(@carriages.last) if @speed.zero?
   end
 
@@ -67,7 +71,7 @@ class Train
   end
 
   # protected
-  TRAIN_NUMBER = /^(\w{3})|(\w{3}-\w{2})/
+  TRAIN_NUMBER = /^(\w{3})|(\w{3}-\w{2})/.freeze
   @@trains = {}
 
   def self.find(number)
