@@ -31,8 +31,13 @@ class Log
     puts '0: Exit programm'
   end
 
-  def cc_log
+  def sc_log
     puts '1: Disconnect carriages'
     puts '2: Show carriages'
+  end
+
+  def mt_log
+    puts '1: Next'
+    puts '2: Previous'
   end
 end

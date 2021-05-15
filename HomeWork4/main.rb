@@ -71,53 +71,51 @@ class Simulation
 
   def follow_the_ruote
     return unless @helper.current_train.current_station.name_station != @helper.current_train.route.last.name_station
-      @loger.ftr_log
-      answer = gets.to_i
-      case answer
-      when 1
-        move_train
-      when 2
-        @helper.current_train.current_station.all_trains { |train| puts train.type }
-      end
-    end
-  end
 
-  def move_train
-    @loger
-      .answer = gets.to_i
-    case answer
-    when 1
-      @helper.current_train.move(1)
-    when 2
-      @helper.current_train.move(-1)
-    when 3
-      follow_the_ruote
-    end
-  end
-
-  def action_with_carriages
-    @loger.awc_log
+    @loger.ftr_log
     answer = gets.to_i
     case answer
     when 1
-      @helper.attach_carriage
+      move_train
     when 2
-      create_carriage
-    when 3
-      @helper.fill_capacity
+      @helper.current_train.current_station.all_trains { |train| puts train.type }
     end
   end
+end
 
-  def create_carriage
-    @loger.cc_log
-    answer = gets.to_i
-    case answer
-    when 1
-      @helper.current_train.unhook_carriage
-    when 2
-      @helper.current_train.carriages.each do |carriage|
-        puts "Type: #{carriage.type}, capacity: #{carriage.show_capacity}, occupied: #{carriage.show_occupied_volume}"
-      end
+def move_train
+  @loger.mt_log
+  answer = gets.to_i
+  case answer
+  when 1
+    @helper.current_train.move(1)
+  when 2
+    @helper.current_train.move(-1)
+  end
+  follow_the_ruote
+end
+
+def action_with_carriages
+  @loger.awc_log
+  answer = gets.to_i
+  case answer
+  when 1
+    @helper.attach_carriage
+  when 2
+    @helper.fill_capacity
+  end
+  show_carriage
+end
+
+def show_carriage
+  @loger.sc_log
+  answer = gets.to_i
+  case answer
+  when 1
+    @helper.current_train.unhook_carriage
+  when 2
+    @helper.current_train.carriages.each do |carriage|
+      puts "Type: #{carriage.type}, capacity: #{carriage.show_capacity}, occupied: #{carriage.show_occupied_volume}"
     end
   end
 end

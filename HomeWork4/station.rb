@@ -10,13 +10,19 @@ class Station
 
   attr_reader :station_type_trains, :name_station
 
+  @all = []
+
   def initialize(name_station)
     @name_station = name_station
     validate_station_name!
     @station_type_trains = { cargo: [], passenger: [] }
     @trains = []
-    @@all.append(self)
     register_instance
+    Station.all
+  end
+
+  def self.all
+    @all.append(self)
   end
 
   def show_trains
@@ -31,11 +37,6 @@ class Station
 
   # private
   STATION_NAME = /^[a-zA-Z]{5,}/.freeze
-  @@all = []
-
-  def self.all
-    @@all
-  end
 
   def receiving_trains(train)
     items = @station_type_trains[train.type]

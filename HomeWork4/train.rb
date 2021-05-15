@@ -9,17 +9,15 @@ class Train
   include Owner
   attr_reader :speed, :carriages, :type, :number, :train_composition, :route, :current_station
 
-  @@instances = 0
-
   def initialize(number)
     @type = ''
     @number = number
     validate_train_number!
     @carriages = []
     @speed = 0
-    @@trains[number] = self
     @current_station = nil
     register_instance
+    Train.foo(number)
   end
 
   def take_overclocking
@@ -72,10 +70,14 @@ class Train
 
   # protected
   TRAIN_NUMBER = /^(\w{3})|(\w{3}-\w{2})/.freeze
-  @@trains = {}
+  @trains = {}
+
+  def self.foo(number)
+    @trains[number] = self
+  end
 
   def self.find(number)
-    @@trains[number] if @@trains.include?(number)
+    @trains[number] if @trains.include?(number)
   end
 
   def appoint_route(route)
