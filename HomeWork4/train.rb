@@ -2,17 +2,23 @@
 
 require_relative 'Instance_counter' # counter class var
 require_relative 'Module_owner' # to set owner
+require_relative 'module_accessor'
+require_relative 'module_validation'
 
 # responsible for creating the train
 class Train
   include InstanceCounter
   include Owner
-  attr_reader :speed, :carriages, :type, :number, :train_composition, :route, :current_station
+  extend Accessor
+  extend Validation
+
+  attr_accessor_with_history :speed, :carriages, :type, :number, :train_composition, :route, :current_station
+
+  validate :number, :format, /^(\w{3})|(\w{3}-\w{2})/.freeze
 
   def initialize(number)
-    @type = ''
     @number = number
-    validate_train_number!
+    @type = ''
     @carriages = []
     @speed = 0
     @current_station = nil
@@ -69,7 +75,6 @@ class Train
   end
 
   # protected
-  TRAIN_NUMBER = /^(\w{3})|(\w{3}-\w{2})/.freeze
   @trains = {}
 
   def self.foo(number)
@@ -84,16 +89,5 @@ class Train
     @route = route.stations
     @current_station = @route[0]
     @current_station.receiving_trains(self)
-  end
-
-  def validate_train_number!
-    raise NameError if number !~ TRAIN_NUMBER
-  end
-
-  def valid?
-    validate_train_number!
-    true
-  rescue StandardError
-    false
   end
 end

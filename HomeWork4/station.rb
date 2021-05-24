@@ -2,19 +2,24 @@
 
 require_relative 'Instance_counter' # counter class var
 require_relative 'Module_owner' # to set owner
+require_relative 'module_accessor'
+require_relative 'module_validation'
 
 # responsible for creating stations for trains
 class Station
   include InstanceCounter
   include Owner
+  extend Accessor
+  extend Validation
 
-  attr_reader :station_type_trains, :name_station
+  attr_accessor_with_history :station_type_trains, :name_station
+
+  validate :name_station, :format, /^[a-zA-Z]{5,}/.freeze
 
   @all = []
 
   def initialize(name_station)
     @name_station = name_station
-    validate_station_name!
     @station_type_trains = { cargo: [], passenger: [] }
     @trains = []
     register_instance
@@ -36,7 +41,6 @@ class Station
   end
 
   # private
-  STATION_NAME = /^[a-zA-Z]{5,}/.freeze
 
   def receiving_trains(train)
     items = @station_type_trains[train.type]
@@ -47,16 +51,5 @@ class Station
 
   def sending_trains(train)
     @station_type_trains[train.type].delete(train)
-  end
-
-  def validate_station_name!
-    raise 'Use letters from a-z without numbers' if name_station !~ STATION_NAME
-  end
-
-  def valid?
-    validate_station_name!
-    true
-  rescue StandardError
-    false
   end
 end

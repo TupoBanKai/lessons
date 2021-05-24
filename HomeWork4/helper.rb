@@ -6,17 +6,19 @@ require_relative 'freight_carriage'
 require_relative 'route'
 require_relative 'station'
 require_relative 'passenger_carriage'
+require_relative 'module_accessor'
 
 # helper class for main.rb class simulatuin
 class Helper
-  attr_accessor :stations, :current_train, :route, :trains
+  extend Accessor
+
+  attr_accessor_with_history :stations, :current_train, :route, :trains
 
   def initialize
     @stations = []
     @current_train = nil
     @route = nil
     @trains = []
-    @number = nil
   end
 
   def create_train
