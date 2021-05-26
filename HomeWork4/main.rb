@@ -70,7 +70,7 @@ class Simulation
   end
 
   def follow_the_ruote
-    return unless @helper.current_train.current_station.name_station != @helper.current_train.route.last.name_station
+    return unless @helper.current_train.current_station != @helper.current_train.route.last
 
     @loger.ftr_log
     answer = gets.to_i

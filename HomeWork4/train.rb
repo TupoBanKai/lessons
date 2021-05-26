@@ -9,8 +9,8 @@ require_relative 'module_validation'
 class Train
   include InstanceCounter
   include Owner
-  extend Accessor
-  extend Validation
+  include Accessor
+  include Validation
 
   attr_accessor_with_history :speed, :carriages, :type, :number, :train_composition, :route, :current_station
 

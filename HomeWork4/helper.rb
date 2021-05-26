@@ -10,7 +10,7 @@ require_relative 'module_accessor'
 
 # helper class for main.rb class simulatuin
 class Helper
-  extend Accessor
+  include Accessor
 
   attr_accessor_with_history :stations, :current_train, :route, :trains
 

@@ -9,8 +9,8 @@ require_relative 'module_validation'
 class Station
   include InstanceCounter
   include Owner
-  extend Accessor
-  extend Validation
+  include Accessor
+  include Validation
 
   attr_accessor_with_history :station_type_trains, :name_station
 
@@ -20,6 +20,7 @@ class Station
 
   def initialize(name_station)
     @name_station = name_station
+    validate!
     @station_type_trains = { cargo: [], passenger: [] }
     @trains = []
     register_instance
