@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+# for counter
 class Counter
   attr_accessor :value
+
   POINT = 21
 
   def initialize
@@ -7,9 +11,9 @@ class Counter
   end
 
   def counter(*cards)
-    names = [:v, :q, :k, :a]
+    names = %i[v q k a]
     cards.each do |card|
-      if !(names.include?(card.name))
+      if !names.include?(card.name)
         integer_counter(card.name)
       elsif card.name == :a
         ace_counter
@@ -22,7 +26,7 @@ class Counter
   def ace_counter
     if (@value + 11) < POINT
       @value += 11
-    else (@value + 11) > POINT
+    else
       @value += 1
     end
   end
@@ -36,22 +40,20 @@ class Counter
   end
 
   def who_win(player_value, diler_value)
-    if player_value == POINT and diler_value == POINT
+    if (player_value == POINT) && (diler_value == POINT)
       true
-    elsif player_value > POINT and player_value < diler_value
+    elsif (player_value > POINT) && (player_value < diler_value)
       true
     elsif player_value == POINT
       true
-    elsif player_value <= POINT and player_value > diler_value
+    elsif (player_value <= POINT) && (player_value > diler_value)
       true
-    elsif player_value < POINT and diler_value > POINT
+    elsif (player_value < POINT) && (diler_value > POINT)
       true
-    elsif player_value >= POINT and diler_value > POINT
-      true
-    elsif player_value == diler_value
+    elsif (player_value >= POINT) && (diler_value > POINT)
       true
     else
-      false
+      player_value == diler_value
     end
   end
 end

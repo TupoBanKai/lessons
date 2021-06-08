@@ -1,83 +1,42 @@
-require_relative 'Card'
-require_relative 'Deck'
-require_relative 'Counter'
-require_relative 'Player'
-require_relative 'Diler'
-require_relative 'Bank'
+# frozen_string_literal: true
 
+require_relative 'main'
+
+# class player's action with program
 class Simulation
-  @@bank = Bank.new
   def initialize
-    @deck = Deck.new
-    @deck.card_writer
-    @user_cards = [@deck.deck.pop, @deck.deck.pop]
-    @diler_cards = [@deck.deck.pop, @deck.deck.pop]
-    @player = Player.new(@user_cards, @deck.deck.pop)
-    @diler = Diler.new(@diler_cards, @deck.deck.pop)
-    @counter = Counter.new
+    puts 'Hello player'
   end
 
-  def start
-    puts 'Your cards:'
-    @user_cards.each { |card| puts "#{card.name} - #{card.suit}" }
-    puts 'Your value:'
-    puts @player.count_value
-    puts "Your bet: #{@@bank.bet}"
-    mid
+  def begin(cards, value, bet)
+    puts "Your cards: #{cards}"
+    puts "Your value: #{value}"
+    puts "Your bet: #{bet}"
   end
 
   def mid
-    puts '1: Skip turn'
+    puts '1: Show cards'
     puts '2: Take a card'
-    answer = gets.chomp.to_i
-    case answer
-    when 1
-      mid_diler
-    when 2
-      puts 'Your new card and value'
-      @player.add_card
-      puts "#{@player.third_card.name} - #{@player.third_card.suit}"
-      puts @player.count_value
-      mid_diler
-    end
   end
 
-  def mid_diler
-    if @diler.count_value < 17
-      puts 'Diler take a card'
-      @diler.add_card
-    end
-    end_game
+  def new_card(card, value)
+    puts "Your card and new value: #{card}, #{value}"
   end
 
-  def end_game
-    puts "Diler value - #{@diler.count_value}"
-    total = @counter.who_win(@player.value, @diler.value)
+  def end_game(p_value, d_value, _who_win, cash)
+    puts "Diler value - #{d_value}"
+    puts "Your value - #{p_value}"
     if total
-      @@bank.place_bet
       puts 'Player win'
-    elsif total != 'Drow'
-      @@bank.seizure
+    elsif tital == 'Drow'
       puts 'Diler win'
     end
-    puts "Your balance: #{@@bank.cash_account}"
-    one_more
+    puts "Your balance: #{cash}"
   end
 
-    def one_more
-      puts 'One more?'
-      puts '1: Yes'
-      puts '2: No'
-      answer = gets.to_i
-      case answer
-      when 1
-        initialize
-        start
-      when 2
-        true
-      end
-    end
+  def one_more
+    puts 'One more?'
+    puts '1: Yes'
+    puts '2: No'
+  end
 end
-
-lol = Simulation.new
-lol.start

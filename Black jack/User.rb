@@ -1,7 +1,9 @@
-require_relative 'Counter'
-require_relative 'Deck'
+# frozen_string_literal: true
 
+require_relative 'counter'
+require_relative 'deck'
 
+# class for create Player and Diler
 class User
   attr_reader :value, :third_card
 
@@ -13,7 +15,7 @@ class User
   end
 
   def add_card
-      @cards.append(@third_card)
+    @cards.append(@third_card)
   end
 
   def count_value
